@@ -1,22 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import unb from "/public/unb.svg"
 import lupa from "/public/lupa.svg"
 import rick from "/public/Rick.svg"
+import HeaderDeslogado from "./components/HeaderDeslogado";
 
 export default function Home() {
   return (
     <>
-      <div className="h-full bg-[#BEBEBE]">  
-        <header>
-          <div className="w-full h-[99px] bg-[#A4FED3] flex place-items-center">
-            <Image src={unb} alt={unb} className="w-[92px] h-[46px] ml-9"/>
-            <Link href="/usuario/Login" className="bg-[#00ABED] w-[154px] h-[55px] ml-auto mr-14 border border-white rounded-2xl shadow-md text-white text-center text-[30px]">
-              Login
-            </Link>
-          </div>
-        </header>
-      {/* <div className="bg-[#BEBEBE]"> */}
+      <div className="h-full min-h-screen bg-[#EDEDED] ">  
+        <header><HeaderDeslogado/></header>
         <div>
           <div className="flex">
             <div className="ml-24 mt-5 text-black text-[36px]">Novos Professores</div>
@@ -30,20 +22,35 @@ export default function Home() {
         </div>
 
         <main>
-        <div className="flex gap-x-10 mt-30 ml-37 mr-37 h-[281px]">
-          <div className="w-[236px] h-[281px] rounded-[10px] bg-white flex flex-col place-items-center">
-            <Image src={rick} alt={rick} className="w-[185px] h-[185px] mt-5 rounded-[25px]"></Image>
-            <div className="w-[191px] h-[30px] mt-2 text-[23px] text-center leading-[23.69px] font-normal">Rick Sanchez</div>
-            <div className="w-[191px] h-[30px] mb-3 text-[18px] text-center leading-[18.64px] break-words text-[#B2B0B0]">Segurança Computacional</div>
+          <div className="grid grid-cols-4 col-auto mt-7 ml-32 mr-32 place-items-center" >
+              <div className="w-80 h-80 rounded-[10px] bg-white flex flex-col place-items-center hover:bg-[#95BBDFE5]/90">
+                <Image src={rick} alt={rick} className="w-60 h-60 mt-5 rounded-3xl"></Image>
+                <div className="w-52 h-10 mt-2 text-2xl text-center leading-6 font-normal">Rick Sanchez</div>
+                <div className="w-52 h-10 mb-3 text-lg text-center leading-5 break-words text-[#B2B0B0]">Segurança Computacional</div>
+              </div>
+              <div className="w-80 h-80 rounded-[10px] bg-white flex flex-col place-items-center">
+                <Image src={rick} alt={rick} className="w-60 h-60 mt-5 rounded-3xl"></Image>
+                <div className="w-52 h-10 mt-2 text-2xl text-center leading-6 font-normal">Rick Sanchez</div>
+                <div className="w-52 h-10 mb-3 text-lg text-center leading-5 break-words text-[#B2B0B0]">Segurança Computacional</div>
+              </div>
+              <div className="w-80 h-80 rounded-[10px] bg-white flex flex-col place-items-center">
+                <Image src={rick} alt={rick} className="w-60 h-60 mt-5 rounded-3xl"></Image>
+                <div className="w-52 h-10 mt-2 text-2xl text-center leading-6 font-normal">Rick Sanchez</div>
+                <div className="w-52 h-10 mb-3 text-lg text-center leading-5 break-words text-[#B2B0B0]">Segurança Computacional</div>
+              </div>
+              <div className="w-80 h-80 rounded-[10px] bg-white flex flex-col place-items-center">
+                <Image src={rick} alt={rick} className="w-60 h-60 mt-5 rounded-3xl"></Image>
+                <div className="w-52 h-10 mt-2 text-2xl text-center leading-6 font-normal">Rick Sanchez</div>
+                <div className="w-52 h-10 mb-3 text-lg text-center leading-5 break-words text-[#B2B0B0]">Segurança Computacional</div>
+              </div>
           </div>
-        </div>
         </main>
       </div>
     </>
   );
 }
 
-//
+//#95BBDFE5
 // font-family: Questrial;
 // font-size: 30px;
 // font-weight: 400;
