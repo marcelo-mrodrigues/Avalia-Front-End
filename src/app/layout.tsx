@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Questrial } from 'next/font/google';
 import "./globals.css";
+
+const questrial = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-questrial",
+  weight: "100 900",
+})
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
