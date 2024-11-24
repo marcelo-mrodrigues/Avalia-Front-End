@@ -11,11 +11,11 @@ export default function Home() {
         <header><HeaderDeslogado/></header>
         <div>
           <div className="flex">
-            <div className="ml-20 mt-11 text-black text-[36px]">Novos Professores</div>
+            <div className="ml-20 mt-11 text-black text-[36px] font-Questrial">Novos Professores</div>
             <div className="mr-32 mt-7 ml-auto mb-6 bg-white rounded-[20px] flex">
               <Image src={lupa} alt={lupa} className="w-[35px] h-[35px] ml-6 place-self-center"/>
               <div className="w-[454px] h-[61px] mt-2 ml-15 flex place-items-center">
-                <Link href="/usuario/Login" className=" ml-20 text-[#999797] text-center text-[25px] leading[25.75px]"> Buscar Professor(a)</Link>
+                <Link href="/usuario/Login" className=" ml-20 text-[#999797] text-center text-[25px] font-Questrial leading[25.75px]"> Buscar Professor(a)</Link>
               </div>
             </div>
           </div>
@@ -46,19 +46,3 @@ export default function Home() {
     </>
   );
 }
-
-//#95BBDFE5
-// font-family: Questrial;
-// font-size: 25px;
-// font-weight: 400;
-// line-height: 25.75px;
-// text-align: center;
-// text-underline-position: from-font;
-// text-decoration-skip-ink: none;
-
-
-
-
-
-
-
