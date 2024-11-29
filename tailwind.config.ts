@@ -12,6 +12,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        Questrial: ['Questrial'], 
+        Inter: ['Inter'],
+       }
+   
     },
   },
   plugins: [],
