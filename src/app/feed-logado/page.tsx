@@ -1,12 +1,18 @@
-import React from 'react'
-import Link from "next/link"
+"use client";
+import React, { useState } from "react";
 import Image from 'next/image'
 import lupa from '/public/lupa.svg'
 import HeaderLogado from '@/app/components/HeaderLogado'
 import CardProf from '@/app/components/CardProf'
+import PopUp from '../components/PopUpOrdenacao'
 
 
-const usuarioLogado = () => {
+const FeedLogado = () => {
+
+  const [isPopUpVisible, setPopUpVisible] = useState(false);
+
+  const togglePopUp = () => setPopUpVisible(!isPopUpVisible);
+
   return (
     <>
       <div className="h-full min-h-screen bg-[#EDEDED] ">  
@@ -35,9 +41,15 @@ const usuarioLogado = () => {
             <button className="bg-[#00ABED] w-52 h-11 ml-auto mr-10 border border-white rounded-xl shadow-md text-white text-center text-2xl font-Questrial">
             Nova Publicação
             </button>
-            <button className="bg-[#00ABED] w-36 h-11 mr-36 border border-white rounded-xl shadow-md text-white text-center text-3xl font-Questrial">
-            Ordenar
-            </button>
+            <div className="relative mr-36">
+              <button
+                onClick={togglePopUp}
+                className="bg-[#00ABED] w-36 h-11 border border-white rounded-xl shadow-md text-white text-center text-3xl font-Questrial"
+              >
+                Ordenar
+              </button>
+              <PopUp isVisible={isPopUpVisible} />
+            </div>
           </div>
           <div className="grid grid-cols-4 col-auto mt-7 ml-32 mr-32 place-items-center" >
             <CardProf/>
@@ -51,7 +63,7 @@ const usuarioLogado = () => {
   );
 }
 
-export default usuarioLogado
+export default FeedLogado
 
 
 
