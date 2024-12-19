@@ -3,6 +3,8 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ToastContainer , toast} from 'react-toastify'
 import * as Yup from 'yup';
+import { postUser } from "@/utils/api";
+import Link from "next/link";
 
 interface formvalues {
   email: string;
@@ -16,6 +18,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const onSubmit = (values:formvalues, actions: any) =>{
+  postUser();
   console.log(values); // ISSO AQUI É UMA SIMULKAÇÃO DE API, TEM QUE MUDAR DPS
 
   setTimeout(() => {
@@ -79,12 +82,12 @@ const onSubmit = (values:formvalues, actions: any) =>{
               >
                 Entrar
               </button>
-              <button
-                type="button"
+              <Link
+                href="/cadastro-aluno"
                 className="px-6 py-2 bg-[#A4FED3] text-[#222E50] font-Questrial rounded-lg border border-[#222E50]"
               >
                 Criar Conta
-              </button>
+              </Link>
             </div>
           </Form>
                           </Formik>

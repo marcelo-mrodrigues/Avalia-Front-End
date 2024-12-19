@@ -4,8 +4,8 @@ const api = axios.create({
     baseURL:'http://localhost:3000'
 })
 
-const postUser = async (data:CreateUserDto) =>{
-    await api.post('/user',{...data})
+export const postUser = async () =>{
+    await api.post('/user',{})
     .then(function(data){
         console.log(data)
     })
