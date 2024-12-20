@@ -24,7 +24,7 @@ const ModalComentario = ({editar} : {editar : boolean}) => {
       onSubmit={(Values) => console.log(Values)}
       >
         <Form className='h-full'>
-          <Field component='textarea' rows={10}  cols={30} name={"conteudo"} placeholder={""} className="w-full align-text-top whitespace-pre-wrap"/>
+          <Field component='textarea' rows={10}  cols={30} name={"conteudo"} className="w-full align-text-top whitespace-pre-wrap"/>
           <ErrorMessage name={"conteudo"} className='text-red-600 text-sm' component="div" />
           {/*<textarea name="teste" id="" cols={30} rows={10}></textarea>*/}
         <div className='flex justify-between'>
