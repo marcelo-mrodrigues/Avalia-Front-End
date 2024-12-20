@@ -4,7 +4,9 @@ import img_cadastro from "/public/img_cadastro.png"
 import Image from 'next/image'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
-import { postUser } from "@/utils/api";
+import { CreateUserDto } from '@/utils/types';
+import { postUser } from '@/utils/api';
+
 
 
 const validationSchema = Yup.object().shape({
@@ -19,9 +21,9 @@ const validationSchema = Yup.object().shape({
 const entradas = ["nome", "email", "senha", "confirme_senha", "curso", "departamento"];
 
 // Verifica se é um input de senha
-const ehsenha = (entrada : string) : string => ["senha", "confirme_senha"].includes(entrada) ? "password" : "text" 
+const ehsenha = (entrada : string) : string => ["senha", "confirme_senha"].includes(entrada) ? "senha" : "text" 
 
-const initialValues = {
+const initialValues= {
   nome: "",
   email: "",
   senha: "",
@@ -30,8 +32,15 @@ const initialValues = {
   departamento: ""
 };
 
-const onSubmit = () => {
-  // postUser();
+const onSubmit = (data:typeof initialValues) => {
+  const partialUser:CreateUserDto = {
+    name: data.nome,
+    email:data.email,
+    passWord:data.senha,
+    course:data.curso,
+    department:data.departamento 
+  };
+  postUser(partialUser);
 };
 
 const CadastroAluno = () => {
@@ -53,7 +62,7 @@ const CadastroAluno = () => {
               <Form className='flex flex-col gap-5'>
               {entradas.map((entrada) =>(
               <div key={entrada}>
-                <Field type={ehsenha(entrada)} name={entrada} placeholder={entrada.replace("_", " ")} className="inputs"/>
+                <Field type={ehsenha(entrada)} nome={entrada} placeholder={entrada.replace("_", " ")} className="inputs"/>
                 <ErrorMessage name={entrada} className='text-red-600' component="div" />
               </div>
               ))}

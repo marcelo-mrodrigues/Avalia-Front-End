@@ -1,16 +1,14 @@
 import axios from "axios";
 import { CreateUserDto, LoginRequestBody } from "./types";
-import { headers } from "next/headers";
 
 const api = axios.create({
     baseURL:'http://localhost:3333'
 })
 
-export const postUser = async (data:CreateUserDto) =>{
-    console.log('teste')
-    await api.post('auth/cadastro',data)
+export const postUser = async (cadastro:CreateUserDto) =>{
+    await api.post('auth/cadastro',cadastro)
     .then(function(data){
-        console.log(data)
+        console.log(data.data)
     })
 }
 
@@ -55,41 +53,3 @@ export const loginUser = async (login:LoginRequestBody) =>{
 //         console.log(data)
 //     })
 // }
-// api.get("/user/3").then(function(data){
-//     console.log(data);
-// })
-// const postUser = async(data:) => {
-//     await api.post("/user",data);
-
-// }
-
-// export const getServerSideProps: GetServerSideProps<AvaliacaoPageProps> = async ({ params }) => {
-//     const { id } = params as { id: string }; 
-  
-//     return axios.get(`http://localhost:3001/avaliacao/${id}`)
-//       //Caso o ID exista
-//       .then(async (avaliacaoResponse) => {
-//         const avaliacao: Avaliacao = avaliacaoResponse.data;
-  
-//         // Fetching comments
-//         const comentariosResponse = await axios.get(`http://localhost:3001/comentario/avaliacao/${id}`);
-//         const comentarios: Comentario[] = comentariosResponse.data;
-  
-//         return {
-//           props: { avaliacao, comentarios },
-//         };
-//       })
-//       //Caso o ID não exista
-//       .catch((error) => {
-//         if (axios.isAxiosError(error) && error.response?.status === 404) {
-//           return {
-//             redirect: {
-//               destination: '/404', //tela específica de erro
-//               permanent: false,
-//             },
-//           };
-//         }
-//         throw error; // Se não for um erro de resposta 404 (ID solicitado não pode ser encontrado no servidor), lança o erro novamente
-//       });
-//   };
-  

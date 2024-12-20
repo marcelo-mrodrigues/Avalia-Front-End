@@ -7,10 +7,6 @@ import { loginUser, postUser } from "@/utils/api";
 import Link from "next/link";
 import { LoginRequestBody } from "@/utils/types";
 
-// interface formvalues {
-//   email: string;
-//   passWord: string;
-// }
 
 const LoginPage = () => {
 const validationSchema = Yup.object().shape({
@@ -20,7 +16,6 @@ const validationSchema = Yup.object().shape({
 
 const onSubmit = (values:LoginRequestBody, actions: any) =>{
   loginUser(values)
-  // console.log(values); // ISSO AQUI É UMA SIMULKAÇÃO DE API, TEM QUE MUDAR DPS
 
   setTimeout(() => {
     actions.setSubmitting(false);

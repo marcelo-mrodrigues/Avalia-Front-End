@@ -8,8 +8,6 @@ export type CreateUserDto={
     department : string;
 
     course : string;
-
-    profilePic? : string;
 }
 
 export type LoginRequestBody={
