@@ -62,7 +62,7 @@ const CadastroAluno = () => {
               <Form className='flex flex-col gap-5'>
               {entradas.map((entrada) =>(
               <div key={entrada}>
-                <Field type={ehsenha(entrada)} nome={entrada} placeholder={entrada.replace("_", " ")} className="inputs"/> {}
+                <Field type={ehsenha(entrada)} nome={entrada} placeholder={entrada.replace("_", " ")} className="inputs"/>
                 <ErrorMessage name={entrada} className='text-red-600' component="div" />
               </div>
               ))}
