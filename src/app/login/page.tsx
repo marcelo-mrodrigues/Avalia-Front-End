@@ -16,10 +16,10 @@ const validationSchema = Yup.object().shape({
 
 const onSubmit = (values:LoginRequestBody, actions: any) =>{
   loginUser(values)
-
+  //console.log(values); Então, testei e ele está mandando normalmente os valores dos campos preenchidos
   setTimeout(() => {
     actions.setSubmitting(false);
-    toast.success('Login bem-sucedido!',{icon: (<div className="icon-check"></div>),});
+    toast.success('Login bem-sucedido!',{icon: (<div className="icon-check"></div>),}); //isso aqui era só um teste hein, importante salientar
   }, 1000);
 };
 
