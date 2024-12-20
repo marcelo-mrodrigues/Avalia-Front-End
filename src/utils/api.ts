@@ -1,41 +1,51 @@
 import axios from "axios";
+import { CreateUserDto, LoginRequestBody } from "./types";
+import { headers } from "next/headers";
 
 const api = axios.create({
-    baseURL:'http://localhost:3000'
+    baseURL:'http://localhost:3333'
 })
 
-export const postUser = async () =>{
-    await api.post('/user',{})
+export const postUser = async (data:CreateUserDto) =>{
+    console.log('teste')
+    await api.post('auth/cadastro',data)
     .then(function(data){
         console.log(data)
     })
 }
 
-const getOneUser = async (id:number) =>{
-    await api.get(`/user/${id}`)
+
+export const getOneUser = async () =>{
+    await api.get('/user/id/10')
     .then(function(data){
         console.log(data)
     })
 }
 
-const patchUser = async (data:UpdateUserDto) =>{
-    await api.patch(`/user/${id}`,{
-        headers:{Authorization:`Bearer ${token}`}
-    })
+// const patchUser = async (id:number) =>{
+//     await api.patch(`/user/${id}`,{
+//         headers:{Authorization:`Bearer ${token}`}
+//     })
+//     .then(function(data){
+//         console.log(data)
+//     })
+// }
+
+// const deleteUser = async (data:CreateUserDto,token:User) =>{
+//     await api.delete('/user',{
+//         headers:{Authorization:`Bearer ${token}`}
+//     })
+//     .then(function(data){
+//         console.log(data)
+//     })
+// }
+
+export const loginUser = async (login:LoginRequestBody) =>{
+    await api.post('auth/login',login)
     .then(function(data){
-        console.log(data)
+        console.log(data.data)
     })
 }
-
-const deleteUser = async (data:CreateUserDto,token:User) =>{
-    await api.delete('/user',{
-        headers:{Authorization:`Bearer ${token}`}
-    })
-    .then(function(data){
-        console.log(data)
-    })
-}
-
 
 
 

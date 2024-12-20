@@ -3,23 +3,24 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ToastContainer , toast} from 'react-toastify'
 import * as Yup from 'yup';
-import { postUser } from "@/utils/api";
+import { loginUser, postUser } from "@/utils/api";
 import Link from "next/link";
+import { LoginRequestBody } from "@/utils/types";
 
-interface formvalues {
-  email: string;
-  password: string;
-}
+// interface formvalues {
+//   email: string;
+//   passWord: string;
+// }
 
 const LoginPage = () => {
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Email inválido').required('Email é obrigatório'),
-  password: Yup.string().required('Senha é obrigatória'), // validação do yup
+  passWord: Yup.string().required('Senha é obrigatória'), // validação do yup
 });
 
-const onSubmit = (values:formvalues, actions: any) =>{
-  postUser();
-  console.log(values); // ISSO AQUI É UMA SIMULKAÇÃO DE API, TEM QUE MUDAR DPS
+const onSubmit = (values:LoginRequestBody, actions: any) =>{
+  loginUser(values)
+  // console.log(values); // ISSO AQUI É UMA SIMULKAÇÃO DE API, TEM QUE MUDAR DPS
 
   setTimeout(() => {
     actions.setSubmitting(false);
@@ -44,7 +45,7 @@ const onSubmit = (values:formvalues, actions: any) =>{
             Avaliação de Professores
           </h1>
           <Formik
-            initialValues={{email: '', password:''}}
+            initialValues={{email: '', passWord:''}}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
             >
@@ -64,14 +65,14 @@ const onSubmit = (values:formvalues, actions: any) =>{
             /></div>
             <div>
             <Field
-              type="password"
-              name="password"
+              type="passWord"
+              name="passWord"
               placeholder="Senha"
               className="w-full max-w-[500px] min-w-[300px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-teal-500"
             />
             <ErrorMessage
             component="div"
-            name="password"
+            name="passWord"
             className="text-red-500 text-sm mt-1"
             />
             </div>

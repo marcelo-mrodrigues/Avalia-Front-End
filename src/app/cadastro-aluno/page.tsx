@@ -4,6 +4,7 @@ import img_cadastro from "/public/img_cadastro.png"
 import Image from 'next/image'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
+import { postUser } from "@/utils/api";
 
 
 const validationSchema = Yup.object().shape({
@@ -29,8 +30,8 @@ const initialValues = {
   departamento: ""
 };
 
-const onSubmit = (values: Object) => {
-  console.log("ola")
+const onSubmit = () => {
+  // postUser();
 };
 
 const CadastroAluno = () => {
