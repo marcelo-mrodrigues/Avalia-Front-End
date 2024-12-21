@@ -22,30 +22,29 @@ const ModalAvaliacao = () => {
   const [professores, setProfessores] = useState([{name : 'Selecione o professor', id: ''} , {name: 'João', id: '1'}, {name: 'Kleber', id: '2'}]);
   const [disciplinas, setDisciplinas] = useState([{name: 'Selecione a disciplina', id: ''},{name : 'CIC', id: '1'}, {name: 'OAC', id: '2'}]);
   return (
-    <div className='flex bg-[#3EEE9A] flex-col h-[60%] w-[40%] p-5 rounded-xl'>
+      <div className='fixed flex z-50 inset-0 items-center justify-center'>
       <Formik initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(Values) => console.log(Values)}
-      className='h-full'
       >
-        <Form>
-        <div className='flex flex-col gap-3 h-full'>
+        <Form className='flex bg-[#3EEE9A] flex-col h-[60%] w-[40%] p-5 rounded-xl'>
+        <div className='flex gap-3 flex-col h-full'>
             <Field as='select' id='professorSel' name='professorSel' className="p-2 rounded-sm">
             {professores.map((professor) => (
               <option key={professor.name} value={professor.id}>{professor.name}</option>
             ))}
             </Field>
-            <ErrorMessage name='professorSel' className='text-red-600 text-sm' component="div" />
+            <ErrorMessage name='professorSel' className='text-red-600 text-xs' component="div" />
 
             <Field as='select' id='disciplinaSel' name='disciplinaSel'  className='p-2 rounded-sm'>
             {disciplinas.map((disciplinas) => (
               <option key={disciplinas.name} value={disciplinas.id}>{disciplinas.name}</option>
             ))}
             </Field>
-            <ErrorMessage name='disciplinaSel' className='text-red-600 text-sm' component="div" />
+            <ErrorMessage name='disciplinaSel' className='text-red-600 text-xs' component="div" />
 
             <Field component='textarea' name='conteudo' className="w-full h-full align-text-top whitespace-pre-wrap"/>
-            <ErrorMessage name={"conteudo"} className='text-red-600 text-sm' component="div" />
+            <ErrorMessage name={"conteudo"} className='text-red-600 text-xs' component="div" />
         </div>
         <div className='flex justify-end gap-4 p-2'>
           <button className='text-white font-Inter text-xl p-1'>Cancelar</button>
@@ -53,7 +52,7 @@ const ModalAvaliacao = () => {
         </div>
       </Form>
       </Formik>
-    </div>
+      </div>
   )
 }
 

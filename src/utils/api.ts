@@ -6,7 +6,7 @@ const api = axios.create({
 })
 
 export const postUser = async (cadastro:CreateUserDto) =>{
-    await api.post('auth/cadastro',cadastro)
+    await api.post('auth/cadastro', cadastro)
     .then(function(data){
         console.log(data.data)
     })

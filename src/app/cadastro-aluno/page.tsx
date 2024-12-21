@@ -33,7 +33,7 @@ const initialValues= {
 };
 
 const onSubmit = (data:typeof initialValues) => {
-  const partialUser:CreateUserDto = {
+  const partialUser : CreateUserDto = {
     name: data.nome,
     email:data.email,
     passWord:data.senha,
@@ -70,7 +70,7 @@ const CadastroAluno = () => {
               </Form>
               </Formik>
             </div>
-        </div> {/* Cadastro*/}
+        </div>
     </main>
   )
 }

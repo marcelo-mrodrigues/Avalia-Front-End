@@ -4,7 +4,8 @@ import img_cadastro from "/public/img_cadastro.png"
 import Image from 'next/image'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
-
+import { CreateUserDto } from '@/utils/types';
+import { postUser } from '@/utils/api';
 
 // Validação dos Dados
 const initialValues = {
@@ -14,6 +15,18 @@ const initialValues = {
   confirme_senha: "",
   curso: "",
   departamento: ""
+};
+
+const onSubmit = (data : typeof initialValues) => {
+  const partialUser:CreateUserDto = {
+    name: data.nome,
+    email:data.email,
+    passWord:data.senha,
+    course:data.curso,
+    department:data.departamento 
+  };
+  console.log(partialUser);
+  postUser(partialUser);
 };
 
 const validationSchema = Yup.object().shape({
@@ -32,7 +45,7 @@ const ehsenha = (entrada : string) : string => ["senha", "confirme_senha"].inclu
 //  Titulariza os placeholders
 const titulariza = (str : string) : string => (str.charAt(0).toUpperCase() + str.slice(1)).replace("_", " a ");
 
-const CadastroAluno = () => {
+const Cadastro = () => {
   
   return (
     <main className="h-screen w-full flex">
@@ -47,7 +60,8 @@ const CadastroAluno = () => {
         <Formik
         validationSchema={validationSchema}
         initialValues={initialValues}
-        onSubmit={(values, {setSubmitting})=>{console.log(values);
+        onSubmit={(values, {setSubmitting})=>{
+          onSubmit(values);
           setSubmitting(false);
         }}>
           
@@ -69,4 +83,4 @@ const CadastroAluno = () => {
   )
 }
 
-export default CadastroAluno
+export default Cadastro
