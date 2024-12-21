@@ -1,15 +1,13 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { CreateUserDto, LoginRequestBody } from "./types";
 
 const api = axios.create({
     baseURL:'http://localhost:3333'
 })
 
-export const postUser = async (cadastro:CreateUserDto) =>{
-    await api.post('auth/cadastro',cadastro)
-    .then(function(data){
-        console.log(data.data)
-    })
+export const postUser = async (cadastro:CreateUserDto) => {
+    const res = await api.post('auth/cadastro', cadastro)
+    sessionStorage.setItem('token', res.data.access_token);
 }
 
 
