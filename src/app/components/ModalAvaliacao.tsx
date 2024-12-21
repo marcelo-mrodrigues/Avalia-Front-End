@@ -18,7 +18,7 @@ const validationSchema = Yup.object().shape({
 });
 
 
-const ModalAvaliacao = () => {
+const ModalAvaliacao = ({onClose} : {onClose : () => void}) => {
   const [professores, setProfessores] = useState([{name : 'Selecione o professor', id: ''} , {name: 'João', id: '1'}, {name: 'Kleber', id: '2'}]);
   const [disciplinas, setDisciplinas] = useState([{name: 'Selecione a disciplina', id: ''},{name : 'CIC', id: '1'}, {name: 'OAC', id: '2'}]);
   return (
@@ -47,7 +47,7 @@ const ModalAvaliacao = () => {
             <ErrorMessage name={"conteudo"} className='text-red-600 text-xs' component="div" />
         </div>
         <div className='flex justify-end gap-4 p-2'>
-          <button className='text-white font-Inter text-xl p-1'>Cancelar</button>
+          <button onClick={onClose} className='text-white font-Inter text-xl p-1'>Cancelar</button>
           <button type='submit' className='bg-[#A4FED3] text-[#2B895C] font-Inter text-xl p-1 rounded-md'>Comentar</button>
         </div>
       </Form>
