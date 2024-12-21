@@ -6,6 +6,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
 import { CreateUserDto } from '@/utils/types';
 import { postUser } from '@/utils/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
+import { error } from 'console';
 
 // Validação dos Dados
 const initialValues = {
@@ -17,7 +20,7 @@ const initialValues = {
   departamento: ""
 };
 
-const onSubmit = (data : typeof initialValues) => {
+const onSubmit = async (data : typeof initialValues) => {
   const partialUser:CreateUserDto = {
     name: data.nome,
     email:data.email,
@@ -25,8 +28,13 @@ const onSubmit = (data : typeof initialValues) => {
     course:data.curso,
     department:data.departamento 
   };
-  console.log(partialUser);
-  postUser(partialUser);
+  try {
+    await postUser(partialUser);
+    window.location.href = '/feed-logado'
+  } catch (error : any) {
+    notify(error.response.data.message)
+  }
+  
 };
 
 const validationSchema = Yup.object().shape({
@@ -44,6 +52,21 @@ const entradas = ["nome", "email", "senha", "confirme_senha", "curso", "departam
 const ehsenha = (entrada : string) : string => ["senha", "confirme_senha"].includes(entrada) ? "password" : "text" 
 //  Titulariza os placeholders
 const titulariza = (str : string) : string => (str.charAt(0).toUpperCase() + str.slice(1)).replace("_", " a ");
+
+
+const notify = (errorMessage : string) => {
+  toast.error(errorMessage, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+};
+
 
 const Cadastro = () => {
   
@@ -79,6 +102,7 @@ const Cadastro = () => {
             </Formik>
           </div>
       </div> {/* Cadastro*/}
+      <ToastContainer/>
   </main>
   )
 }

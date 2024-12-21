@@ -14,13 +14,13 @@ const validationSchema = Yup.object().shape({
   conteudo: Yup.string().max(144, "Comentario muito grande").required('Comentario Inválido')
 });
 
-interface Props {
+export interface ModalProps {
   editar : boolean
   onClose: () => void
 }
 
 
-const ModalComentario = ({editar, onClose} : Props) => {
+const ModalComentario = ({editar, onClose} : ModalProps) => {
 
   return (
     <div className='fixed flex z-50 inset-0 items-center justify-center'>

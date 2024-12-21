@@ -79,7 +79,7 @@ const onSubmit = (values:LoginRequestBody, actions: any) =>{
                 Entrar
               </button>
               <Link
-                href="/cadastro-aluno"
+                href="/cadastro"
                 className="px-6 py-2 bg-[#A4FED3] text-[#222E50] font-Questrial rounded-lg border border-[#222E50]"
               >
                 Criar Conta
