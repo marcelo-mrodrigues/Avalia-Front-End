@@ -9,7 +9,7 @@ import retorno from "/public/retorno.svg";
 import Image from "next/image";
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { getOneProfessor, getSubjectsByProfessor } from "@/utils/api";
+import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor } from "@/utils/api";
 import { getOneEvaluation } from "@/utils/api";
 import { string } from "yup";
 
@@ -25,9 +25,7 @@ const PagePerfil = () =>{
 
     const [professor, setProfessor] = useState<any>(null);
     const [subjects, setSubjects] = useState<any[]>([]);;
-    console.log(professor);
-    console.log(subjects);
-
+    const [evaluation, setEvaluation] = useState<any[]>([]);
 
 
     useEffect(() => {
@@ -48,6 +46,11 @@ const PagePerfil = () =>{
               const subjectsData = await getSubjectsByProfessor(professorId);
               console.log("Subjects:", subjectsData); // Log para inspecionar os dados
               setSubjects(subjectsData);
+
+              const EvaluationData = await getEvaluationsByProfessor(professorId);
+              console.log("Evaluation:", EvaluationData);
+              setEvaluation(EvaluationData);
+
             } catch (error) {
               console.error("Erro ao buscar dados:", error);
               router.push("/");

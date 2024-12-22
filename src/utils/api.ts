@@ -94,3 +94,14 @@ export const getSubjectsByProfessor = async (id:string) =>{
     
     }
 }
+export const getEvaluationsByProfessor = async (id:string) =>{
+    try{
+        const resposta = await api.get(`/professor/evaluations/${id}`)
+        return resposta.data;}
+        
+        catch(error){
+         console.error("Erro na api", error);
+         throw error;
+     
+     }
+}
