@@ -8,6 +8,8 @@ import HeaderLogado from "../../components/HeaderLogado";
 import retorno from "/public/retorno.svg";
 import Image from "next/image";
 import Link from 'next/link';
+import building from "/public/mdi_office-building.svg"
+import mail from "/public/eva_email-outline.svg"
 import { useParams, useRouter } from 'next/navigation';
 import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor, getOneUser } from "@/utils/api";
 import { getOneEvaluation } from "@/utils/api";
@@ -24,6 +26,7 @@ const PagePerfil = () =>{
     const [user, setUser] = useState<any>(null);
     const [subjects, setSubjects] = useState<any[]>([]);;
     const [evaluation, setEvaluation] = useState<any[]>([]);
+    const [isLoggedIn, setIsLoggedIn]=useState(false);
  
 
 
@@ -40,17 +43,17 @@ const PagePerfil = () =>{
         const fetchData = async () => {
             const userId = Array.isArray(id) ? id[0] : id;
             try {
-              const userData = await getOneUser(userId);
+              const userData = await getOneUser(parseInt(userId));
               setUser(userData);
               console.log("User:", userData);
         
-              const subjectsData = await getSubjectsByProfessor(userId);
-              console.log("Subjects:", subjectsData); // Log para inspecionar os dados
-              setSubjects(subjectsData);
+              // const subjectsData = await getSubjectsByProfessor(userId);
+              // console.log("Subjects:", subjectsData); // Log para inspecionar os dados
+              // setSubjects(subjectsData);
 
-              const EvaluationData = await getEvaluationsByProfessor(professorId);
-              console.log("Evaluation:", EvaluationData);
-              setEvaluation(EvaluationData);
+              // const EvaluationData = await getEvaluationsByProfessor(professorId);
+              // console.log("Evaluation:", EvaluationData);
+              // setEvaluation(EvaluationData);
 
             } catch (error) {
               console.error("Erro ao buscar dados:", error);
@@ -72,23 +75,23 @@ const PagePerfil = () =>{
         <div className="w-[38%] bg-white flex items-center justify-center">
         <div className="bg-[#3EEE9A] flex h-[151px] absolute top-0 w-[38%]">
         <div className=" h-px w-[100%] bg-[#7E7E7E] absolute top-1/2 transform translate-y-64"></div>
-        <div className="mt-20"><img src="/rick.svg" alt="fotodefault" className="w-26 h-26 rounded-full "/>
-            </div>
+        <div className="mt-20"><img src="/morty.svg" alt="fotodefault" className="w-44 h-44 rounded-full "/></div>
             <div  className="mt-44"> 
-            <p className="font-sans text-3xl">{professor?.name || "Sem Nome"} </p>
-            <p>Dept. {professor?.department || "Sem Departamento"}</p>
-            <p>
-                {professor?.subject.map((sub: any, index: number) => (
-                  <span key={index}>{sub.name}</span>
-                ))|| "Sem Disciplinas"}
-              </p>          
-            <p>ID: {id}</p>
+            <p className="font-sans text-3xl">{user?.name || "Sem Nome"} </p>
+            <p className="flex gap-1">
+              <Image src={building} alt="Erro no carregamento da imagem"></Image>
+              {user?.course || "Sem Curso"} {user?.department || "Sem Departamento"}
+            </p>  
+            <p className="flex gap-1">
+              <Image src={mail} alt="Erro no carregamento da imagem"></Image>
+              {user?.email}
+              </p>         
         </div>
         
         </div>
 
         <div className="w-full px-8 mt-32">
-            <h2 className="text-lg font-bold mb-4">Avaliações</h2>
+            <h2 className="text-lg font-bold mb-4">Publicações</h2>
                                                                 {/* Aqui começa o comentário */}
              <div className="w-full mb-4 p-4 border rounded-lg bg-green-100">
                             <div className="flex items-center mb-2">
