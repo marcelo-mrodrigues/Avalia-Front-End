@@ -5,6 +5,7 @@ import lupa from '/public/lupa.svg'
 import HeaderLogado from '@/app/components/HeaderLogado'
 import CardProf from '@/app/components/CardProf'
 import PopUp from '../components/PopUpOrdenacao'
+import Novapub from "../components/Novapub";
 
 
 const FeedLogado = () => {
@@ -38,9 +39,7 @@ const FeedLogado = () => {
           <div className="bg-black h-1 mx-36 my-11"></div>
           <div className="flex">
             <div className="ml-20 mb-5 text-black text-4xl font-Questrial">Todos os Professores</div>
-            <button className="bg-[#00ABED] w-52 h-11 ml-auto mr-10 border border-white rounded-xl shadow-md text-white text-center text-2xl font-Questrial">
-            Nova Publicação
-            </button>
+            <Novapub/>
             <div className="relative mr-36">
               <button
                 onClick={togglePopUp}
