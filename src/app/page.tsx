@@ -89,7 +89,7 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
              {professores.map((professor)=>
-             <div onClick={() => router.push(`/professor/${professor.id}`)}>
+             <div key={professor.id} onClick={() => router.push(`/professor/${professor.id}`)}>
              <CardProf nome={professor.name} departamento={professor.department}/>
              </div>)}        
           </div>
@@ -124,7 +124,10 @@ export default function Home() {
             <PopUp isVisible={isPopUpVisible} />
           </div></div>}</>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
-          {professores.map((professor)=><CardProf nome={professor.name} departamento={professor.department}/>)}
+          {professores.map((professor)=>
+             <div key={professor.id} onClick={() => router.push(`/professor/${professor.id}`)}>
+             <CardProf nome={professor.name} departamento={professor.department}/>
+             </div>)}  
           </div>
         </main>
         {isAvavisible ? <ModalAvaliacao  notify={notify} professores={professores} onClose={() => setAvaVisible(!isAvavisible)} /> : null}

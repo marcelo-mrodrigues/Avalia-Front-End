@@ -11,7 +11,7 @@ interface CardProf {
 
 const CardProf = ({nome, departamento} : CardProf) => {
   return (
-    <div className="relative w-80 h-80 group"> 
+    <div key={nome} className="relative w-80 h-80 group"> 
     <div className="rounded-[10px] bg-white grid gap-1 place-items-center border-white">
         <Image src={rick} alt={rick} className="w-60 h-60 mt-3 rounded-3xl"></Image>
         <div className="text-2xl text-center leading-6 font-Questrial">{nome}</div>
