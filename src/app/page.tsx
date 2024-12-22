@@ -9,6 +9,11 @@ import HeaderLogado from "./components/HeaderLogado";
 import Novapub from "./components/Novapub";
 import { getOneProfessor} from "@/utils/api";
 import { getAllProfessors } from "@/utils/api";
+import ModalAvaliacao from "./components/ModalAvaliacao";
+import { CreateProfessorDto } from "@/utils/types";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
+import { useRouter } from "next/navigation";
 
 export const decideHeader = (setIsLoggedIn:React.Dispatch<React.SetStateAction<boolean>>) => {
     const token = sessionStorage.getItem('token');
@@ -20,14 +25,35 @@ export const decideHeader = (setIsLoggedIn:React.Dispatch<React.SetStateAction<b
     }
 }
 
+const notify = (succesMessage : string) => {
+  toast.success(succesMessage, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+};
+
+
 export default function Home() {
+  const router = useRouter()
   const [isPopUpVisible, setPopUpVisible] = useState(false);
   const togglePopUp = () => setPopUpVisible(!isPopUpVisible);
-
+  const [isAvavisible, setAvaVisible] = useState(false)
   const [isLoggedIn, setIsLoggedIn]=useState(false);
+  const [professores, setProfessores] = useState<CreateProfessorDto[]>([])
+
   useEffect(()=>{
     decideHeader(setIsLoggedIn)
   })
+
+  useEffect(() => {
+    getAllProfessors().then((res : CreateProfessorDto[]) => setProfessores(res));
+  } , [])
 
   return (
     <>
@@ -62,18 +88,20 @@ export default function Home() {
         <main>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
-            <CardProf />
-            <CardProf />
-            <CardProf />
-            <CardProf /> 
-                    
+             {professores.map((professor)=>
+             <div key={professor.id} onClick={() => router.push(`/professor/${professor.id}`)}>
+             <CardProf nome={professor.name} departamento={professor.department}/>
+             </div>)}        
           </div>
           <div className="bg-black h-1 mx-36 my-11"></div>
 
             <>{isLoggedIn ? 
             <div className="flex">
               <div className="ml-20 mb-5 text-black text-4xl font-Questrial">Todos os Professores</div>
-              <Novapub/> 
+              <button onClick={()=> setAvaVisible(!isAvavisible)} 
+              className="bg-[#00ABED] w-52 h-11 ml-auto border border-white rounded-xl shadow-md text-white text-center text-2xl font-Questrial">
+              Nova Publicação
+              </button> 
               <div className="relative ml-16 mr-36">
                 <button
                   onClick={togglePopUp}
@@ -96,12 +124,13 @@ export default function Home() {
             <PopUp isVisible={isPopUpVisible} />
           </div></div>}</>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
-            <CardProf />
-            <CardProf />
-            <CardProf />
-            <CardProf />
+          {professores.map((professor)=>
+             <div key={professor.id} onClick={() => router.push(`/professor/${professor.id}`)}>
+             <CardProf nome={professor.name} departamento={professor.department}/>
+             </div>)}  
           </div>
         </main>
+        {isAvavisible ? <ModalAvaliacao  notify={notify} professores={professores} onClose={() => setAvaVisible(!isAvavisible)} /> : null}
       </div>
     </>
   );

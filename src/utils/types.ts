@@ -17,6 +17,20 @@ export type LoginRequestBody={
     passWord : string;
 }
 
+export type CreateProfessorDto = {
+            id: number,
+            name: string,
+            department: string,
+            createdAt: string,
+            updatedAt: string,
+            subject:
+                [{
+                    id: number,
+                    name: string,
+                    createdAt: string,
+                    updatedAt: string
+                }]
+}
 
 export type CreateCommentDto = {
     

@@ -65,10 +65,8 @@ export const getOneProfessor = async (id:string ) =>{
 
 
 export const getAllProfessors = async () =>{
-    await api.get('/professor')
-    .then(function(data){
-        console.log(data)
-    })
+    const res = await api.get('/professor')
+    return res.data
 }
 
 
