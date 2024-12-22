@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { CreateUserDto, LoginRequestBody } from "./types";
 import { CreateCommentDto } from "./types";
 import { CreateEvaluationDto } from "./types";
@@ -7,9 +7,12 @@ const api = axios.create({
     baseURL:'http://localhost:3333'
 })
 
+const setToken = async (res:AxiosResponse) => {
+    sessionStorage.setItem('token',res.data.access_token)
+}
 export const postUser = async (cadastro:CreateUserDto) => {
     const res = await api.post('auth/cadastro', cadastro);
-    sessionStorage.setItem('token', res.data.access_token);
+    setToken(res)
 }
 
 
@@ -40,8 +43,7 @@ export const getOneUser = async () =>{
 
 export const loginUser = async (login:LoginRequestBody) =>{
     const res = await api.post('auth/login',login);
-    sessionStorage.setItem('token', res.data.access_token);
-    console.log("teste")
+    setToken(res)
 }
 
 
@@ -52,6 +54,7 @@ export const loginUser = async (login:LoginRequestBody) =>{
 //         console.log(data)
 //     })
 // }
+
 export const getOneProfessor = async (id:string ) =>{
     try{
         const resposta = await api.get(`/professor/${id}`);
