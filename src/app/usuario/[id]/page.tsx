@@ -11,22 +11,54 @@ import Link from 'next/link';
 import building from "/public/mdi_office-building.svg"
 import mail from "/public/eva_email-outline.svg"
 import { useParams, useRouter } from 'next/navigation';
-import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor, getOneUser } from "@/utils/api";
+import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor, getOneUser, deleteUser, patchUser } from "@/utils/api";
 import { getOneEvaluation } from "@/utils/api";
 import { string } from "yup";
 import { decideHeader } from "@/app/page";
+import { stringify } from "querystring";
+import { toast } from "react-toastify";
+import { LoginRequestBody } from "@/utils/types";
 
 
 
 const PagePerfil = () =>{
     const router = useRouter();
 
-    const { id } = useParams();
+    const  {id}  = useParams();
 
     const [user, setUser] = useState<any>(null);
-    const [subjects, setSubjects] = useState<any[]>([]);;
-    const [evaluation, setEvaluation] = useState<any[]>([]);
     const [isLoggedIn, setIsLoggedIn]=useState(false);
+
+    const excluirUser=async ()=>{
+      const token = sessionStorage.getItem('token')
+      
+      if (token){
+        try{
+          await deleteUser(id,token)
+        }
+        catch(erro){
+          return router.refresh();         
+        }
+          sessionStorage.clear()
+          return router.push("/")
+      }
+    }
+
+    const onSubmit= async(values:LoginRequestBody,actions:any)=>{
+      const token = sessionStorage.getItem('token')
+      
+      if (token){
+        try{
+           await patchUser(id,token,values)
+        }
+        catch(erro){
+          return router.refresh();         
+        }
+          sessionStorage.clear()
+          return router.push("/")
+      }
+    }
+    
  
 
 
@@ -73,22 +105,26 @@ const PagePerfil = () =>{
         </button> </div>
     
         <div className="w-[38%] bg-white flex items-center justify-center">
-        <div className="bg-[#3EEE9A] flex h-[151px] absolute top-0 w-[38%]">
-        <div className=" h-px w-[100%] bg-[#7E7E7E] absolute top-1/2 transform translate-y-64"></div>
-        <div className="mt-20"><img src="/morty.svg" alt="fotodefault" className="w-44 h-44 rounded-full "/></div>
-            <div  className="mt-44"> 
-            <p className="font-sans text-3xl">{user?.name || "Sem Nome"} </p>
-            <p className="flex gap-1">
-              <Image src={building} alt="Erro no carregamento da imagem"></Image>
-              {user?.course || "Sem Curso"} {user?.department || "Sem Departamento"}
-            </p>  
-            <p className="flex gap-1">
-              <Image src={mail} alt="Erro no carregamento da imagem"></Image>
-              {user?.email}
-              </p>         
-        </div>
-        
-        </div>
+          <div className="bg-[#3EEE9A] flex h-[151px] absolute top-0 w-[38%]">
+            <div className=" h-px w-[100%] bg-[#7E7E7E] absolute top-1/2 transform translate-y-64"></div>
+            <div className="mt-20"><img src="/morty.svg" alt="fotodefault" className="w-44 h-44 rounded-full "/></div>
+              <div  className="mt-44"> 
+                <p className="font-sans text-3xl">{user?.name || "Sem Nome"} </p>
+                <p className="flex gap-1">
+                  <Image src={building} alt="Erro no carregamento da imagem"></Image>
+                  {user?.course || "Sem Curso"} {user?.department || "Sem Departamento"}
+                </p>  
+                <p className="flex gap-1">
+                  <Image src={mail} alt="Erro no carregamento da imagem"></Image>
+                  {user?.email}
+                </p>
+              </div>
+                <div className="mt-44 ml-auto mr-9 grid grid-rows-2 gap-14 ">
+                  <button className="w-40 h-9 rounded-2xl bg-[#A4FED3] border-2 shadow-xl border-black " type="submit">Editar Perfil</button>
+                  <button onClick={excluirUser} className="w-40 h-9 rounded-2xl bg-[#FEA4A4] border-2 shadow-xl border-black ">Excluir Perfil</button>
+                </div>
+              
+          </div>
 
         <div className="w-full px-8 mt-32">
             <h2 className="text-lg font-bold mb-4">Publicações</h2>

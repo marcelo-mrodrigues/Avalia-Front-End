@@ -18,16 +18,17 @@ const validationSchema = Yup.object().shape({
 
 const router = useRouter()
 
-const onSubmit = (values:LoginRequestBody, actions: any,) =>{
-  const logAndRedirect = async () => {
-    await loginUser(values);
-    setTimeout(() => {
-      actions.setSubmitting(false);
-      toast.success('Login bem-sucedido!',{icon: (<div className="icon-check"></div>),});
-    }, 1000);
-    return (router.push("/"))
-  } 
-  logAndRedirect()
+const logAndRedirect = async (values:LoginRequestBody,actions:any) => {
+  await loginUser(values);
+  setTimeout(() => {
+    actions.setSubmitting(false);
+    toast.success('Login bem-sucedido!',{icon: (<div className="icon-check"></div>),});
+  }, 1000);
+  return (router.push("/"))
+} 
+
+const onSubmit = (values:LoginRequestBody, actions: any) =>{
+  logAndRedirect(values,actions)
 };
 
 
