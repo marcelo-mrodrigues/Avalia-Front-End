@@ -6,6 +6,7 @@ import CardProf from "./components/CardProf";
 import lupa from "/public/lupa.svg";
 import PopUp from "./components/PopUpOrdenacao";
 import HeaderLogado from "./components/HeaderLogado";
+import Novapub from "./components/Novapub";
 import { getOneProfessor} from "@/utils/api";
 import { getAllProfessors } from "@/utils/api";
 
@@ -65,20 +66,32 @@ export default function Home() {
                     
           </div>
           <div className="bg-black h-1 mx-36 my-11"></div>
-          <div className="flex justify-between">
-            <div className="ml-20 mb-5 text-black text-4xl font-Questrial">
-              Todos os Professores
+
+            <>{isLoggedIn ? 
+            <div className="flex">
+              <div className="ml-20 mb-5 text-black text-4xl font-Questrial">Todos os Professores</div>
+              <Novapub/> 
+              <div className="relative ml-16 mr-36">
+                <button
+                  onClick={togglePopUp}
+                  className="bg-[#00ABED] w-36 h-11 border border-white rounded-xl shadow-md text-white text-center text-3xl font-Questrial"
+                >
+                  Ordenar
+                </button>
+                <PopUp isVisible={isPopUpVisible} />
+              </div>
             </div>
-            <div className="relative mr-36">
-              <button
-                onClick={togglePopUp}
-                className="bg-[#00ABED] w-36 h-11 border border-white rounded-xl shadow-md text-white text-center text-3xl font-Questrial"
-              >
-                Ordenar
-              </button>
-              <PopUp isVisible={isPopUpVisible} />
-            </div>
-          </div>
+            : <div className="flex">
+            <div className="ml-20 mb-5 text-black text-4xl font-Questrial">Todos os Professores</div>
+            <div className="relative ml-auto mr-36">
+            <button
+              onClick={togglePopUp}
+              className="bg-[#00ABED] w-36 h-11 border border-white rounded-xl shadow-md text-white text-center text-3xl font-Questrial"
+            >
+              Ordenar
+            </button>
+            <PopUp isVisible={isPopUpVisible} />
+          </div></div>}</>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
             <CardProf />
             <CardProf />
