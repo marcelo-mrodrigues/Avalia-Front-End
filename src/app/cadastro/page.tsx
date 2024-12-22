@@ -29,7 +29,7 @@ const onSubmit = async (data : typeof initialValues) => {
   };
   try {
     await postUser(partialUser);
-    window.location.href = '/feed-logado'
+    window.location.href = '/'
   } catch (error : any) {
     notify(error.response.data.message)
   }
