@@ -53,6 +53,8 @@ const PagePerfil = () =>{
               console.log("Evaluation:", EvaluationData);
               setEvaluation(EvaluationData);
 
+              console.log(sessionStorage.getItem("token"))
+
             } catch (error) {
               console.error("Erro ao buscar dados:", error);
               router.push("/");
@@ -84,59 +86,60 @@ const PagePerfil = () =>{
               Dept. {professor?.department || "Sem Departamento"}
             </p>
             <p className="flex gap-1">
-              <Image src={livro} alt="Erro no carregamento da imagem"></Image>
-                {professor?.subject.map((sub: any, index: number) => (
-                  <span key={index}>{sub.name}</span>
-                ))|| "Sem Disciplinas"}
-              </p>          
+            <Image src={livro} alt="Erro no carregamento da imagem"></Image>
+          {subjects.length > 0 ? ( [...new Map(subjects.map((item) => [item.subject.id, item.subject])).values()]
+      .map((uniqueSubject, index) => (
+        <span key={index}>{uniqueSubject.name}</span>
+      ))
+  ) : (
+    <span>Sem Disciplinas</span>
+  )}
+</p>
         </div>
         
         </div>
 
-        <div className="w-full px-8 mt-32">
-            <h2 className="text-lg font-bold mb-4">Avaliações</h2>
-                                                                {/* Aqui começa o comentário */}
-             <div className="w-full mb-4 p-4 border rounded-lg bg-green-100">
-                            <div className="flex items-center mb-2">
-                                <img
-                                    src="/morty.svg"
-                                    alt="fotodefault"
-                                    className="w-10 h-10 rounded-full mr-3"
-                                />
-                                <div>
-                                    <p className="font-bold">{id}</p>
-                                    <p className="text-sm text-gray-500">hahaha</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700">
-                               vamos inserir os users
-                            </p>
-                            
-                        </div>
-                                                {/* segundo comentário teste*/}
-             <div className="w-full mb-4 p-4 border rounded-lg bg-green-100">
-                            <div className="flex items-center mb-2">
-                                <img
-                                    src="/morty.svg"
-                                    alt="fotodefault"
-                                    className="w-10 h-10 rounded-full mr-3"
-                                />
-                                <div>
-                                    <p className="font-bold">uhum</p>
-                                    <p className="text-sm text-gray-500">20/12/2024, às 18:00</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700">
-                                usar key pra destribuir comentarios?
-
-                            </p>
-                            
+        <div className="w-full px-8 mt-32 bg-[#3EEE9A] rounded-2xl">
+  <h2 className="text-lg font-bold mb-4">Avaliações</h2>
+  {evaluation.length > 0 ? (
+    evaluation.map((evaluationItem, index) => (
+      <div key={index} className="w-full mb-4 p-4 border rounded-lg bg-green-100">
+        <div className="flex items-center mb-2">
+          <img
+            src="/morty.svg"
+            alt="Avatar do usuário"
+            className="w-10 h-10 rounded-full mr-3"
+          />
+          <div>
+            <p className="font-bold">{evaluationItem.user?.name || "Usuário Anônimo"}</p>
+            <p className="text-sm text-gray-500">
+                {new Date(evaluationItem.createdAt).toLocaleDateString("pt-BR", {
+                        day: "2-digit",
+                      month: "2-digit",
+                    year: "numeric",
+                  hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </p>
+          </div>
         </div>
+        <p className="text-gray-700">{evaluationItem.content}</p>
+        <div className="text-sm text-gray-500 mt-2">
+          <span>Disciplina: {evaluationItem.subject?.name || "Sem disciplina"}</span>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p className="text-gray-500">Nenhuma avaliação encontrada.</p>
+  )}
+</div>
+
+  
           </div>
           
+        
+        <div className="w-[31%] bg-gray-100 flex items-center justify-center h-full"></div> {/* Parte Direita */}
         </div>
-        <div className="w-[31%] bg-gray-100"></div> {/* Parte Direita */}
-      </div>
       </>
     )
 } 

@@ -8,8 +8,13 @@ import { CreateUserDto } from '@/utils/types';
 import { postUser } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { useRouter } from 'next/navigation';
 
-// Validação dos Dados
+
+const Cadastro = () => {
+
+  const router = useRouter()
+  // Validação dos Dados
 const initialValues = {
   nome: "",
   email: "",
@@ -20,6 +25,8 @@ const initialValues = {
 };
 
 const onSubmit = async (data : typeof initialValues) => {
+  
+  
   const partialUser:CreateUserDto = {
     name: data.nome,
     email:data.email,
@@ -29,7 +36,7 @@ const onSubmit = async (data : typeof initialValues) => {
   };
   try {
     await postUser(partialUser);
-    window.location.href = '/'
+    return router.push("/")
   } catch (error : any) {
     notify(error.response.data.message)
   }
@@ -66,8 +73,6 @@ const notify = (errorMessage : string) => {
     });
 };
 
-
-const Cadastro = () => {
   
   return (
     <main className="h-screen w-full flex">

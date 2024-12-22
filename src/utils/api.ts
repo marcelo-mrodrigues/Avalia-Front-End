@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { CreateUserDto, LoginRequestBody } from "./types";
+import { CreateUserDto, LoginRequestBody, UpdateUserDto } from "./types";
 import { CreateCommentDto } from "./types";
 import { CreateEvaluationDto } from "./types";
 
@@ -26,23 +26,19 @@ export const getOneUser = async (id:number) =>{
     }
 }
 
-// const patchUser = async (id:number) =>{
-//     await api.patch(`/user/${id}`,{
-//         headers:{Authorization:`Bearer ${token}`}
-//     })
-//     .then(function(data){
-//         console.log(data)
-//     })
-// }
+export const patchUser = async (id:any,token:string,dados:UpdateUserDto) =>{
+    await api.patch(
+        `/user/${parseInt(id)}`,{
+        headers:{Authorization:`Bearer ${token}`},
+        data:{dados}}
+    )
+}
 
-// const deleteUser = async (data:CreateUserDto,token:User) =>{
-//     await api.delete('/user',{
-//         headers:{Authorization:`Bearer ${token}`}
-//     })
-//     .then(function(data){
-//         console.log(data)
-//     })
-// }
+export const deleteUser = async (id:any,token:string) =>{
+    await api.delete(`/user/${id}`,{
+        headers:{Authorization:`Bearer ${token}`}
+    })
+}
 
 export const loginUser = async (login:LoginRequestBody) =>{
     const res = await api.post('auth/login',login);
@@ -76,16 +72,10 @@ export const getAllProfessors = async () =>{
 
 export const getOneComment = async (id:string) =>{
     await api.get(`/comment/${id}`)
-    .then(function(data){
-        console.log(data)
-    })
 }
 
 export const getOneEvaluation = async (id:string) =>{
     await api.get(`/evaluation/${id}`)
-    .then(function(data){
-        console.log(data)
-    })
 }
 export const getSubjectsByProfessor = async (id:string) =>{
     try{
