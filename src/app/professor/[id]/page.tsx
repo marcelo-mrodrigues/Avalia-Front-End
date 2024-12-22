@@ -86,11 +86,15 @@ const PagePerfil = () =>{
               Dept. {professor?.department || "Sem Departamento"}
             </p>
             <p className="flex gap-1">
-              <Image src={livro} alt="Erro no carregamento da imagem"></Image>
-                {professor?.subject.map((sub: any, index: number) => (
-                  <span key={index}>{sub.name}</span>
-                ))|| "Sem Disciplinas"}
-              </p>          
+            <Image src={livro} alt="Erro no carregamento da imagem"></Image>
+          {subjects.length > 0 ? ( [...new Map(subjects.map((item) => [item.subject.id, item.subject])).values()]
+      .map((uniqueSubject, index) => (
+        <span key={index}>{uniqueSubject.name}</span>
+      ))
+  ) : (
+    <span>Sem Disciplinas</span>
+  )}
+</p>
         </div>
         
         </div>
