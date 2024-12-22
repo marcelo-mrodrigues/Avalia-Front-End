@@ -1,5 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { CreateUserDto, LoginRequestBody } from "./types";
+import { CreateCommentDto } from "./types";
+import { CreateEvaluationDto } from "./types";
 
 const api = axios.create({
     baseURL:'http://localhost:3333'
@@ -51,3 +53,45 @@ export const loginUser = async (login:LoginRequestBody) =>{
 //         console.log(data)
 //     })
 // }
+export const getOneProfessor = async (id:string ) =>{
+    try{
+        const resposta = await api.get(`/professor/${id}`);
+        return resposta.data;
+    }catch(error){
+        console.error("Erro na api", error);
+        throw error;
+}};
+
+
+export const getAllProfessors = async () =>{
+    await api.get('/professor')
+    .then(function(data){
+        console.log(data)
+    })
+}
+
+
+export const getOneComment = async (id:string) =>{
+    await api.get(`/comment/${id}`)
+    .then(function(data){
+        console.log(data)
+    })
+}
+
+export const getOneEvaluation = async (id:string) =>{
+    await api.get(`/evaluation/${id}`)
+    .then(function(data){
+        console.log(data)
+    })
+}
+export const getSubjectsByProfessor = async (id:string) =>{
+    try{
+       const resposta = await api.get(`/professor/subjects/${id}`)
+       return resposta.data;}
+       
+       catch(error){
+        console.error("Erro na api", error);
+        throw error;
+    
+    }
+}

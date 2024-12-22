@@ -5,6 +5,9 @@ import HeaderDeslogado from "./components/HeaderDeslogado";
 import CardProf from "./components/CardProf";
 import lupa from "/public/lupa.svg";
 import PopUp from "./components/PopUpOrdenacao";
+import { getOneProfessor} from "@/utils/api";
+import { getAllProfessors } from "@/utils/api";
+
 
 export default function Home() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
@@ -43,11 +46,12 @@ export default function Home() {
 
         <main>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center">
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
             <CardProf />
             <CardProf />
             <CardProf />
-            <CardProf />
+            <CardProf /> 
+                    
           </div>
           <div className="bg-black h-1 mx-36 my-11"></div>
           <div className="flex justify-between">
@@ -64,7 +68,7 @@ export default function Home() {
               <PopUp isVisible={isPopUpVisible} />
             </div>
           </div>
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center">
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
             <CardProf />
             <CardProf />
             <CardProf />

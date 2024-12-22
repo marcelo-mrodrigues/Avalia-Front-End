@@ -16,3 +16,29 @@ export type LoginRequestBody={
 
     passWord : string;
 }
+
+
+export type CreateCommentDto = {
+    
+    content: string;
+
+    
+    userID: number;
+
+    
+    evaluationID: number;
+}
+
+export type CreateEvaluationDto = {
+    
+    userID: number;
+  
+   
+    professorID: number;
+  
+    subjectID: number;
+  
+   
+    content: string;
+    
+}
