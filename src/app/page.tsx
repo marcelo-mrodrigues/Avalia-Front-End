@@ -10,13 +10,7 @@ import Novapub from "./components/Novapub";
 import { getOneProfessor} from "@/utils/api";
 import { getAllProfessors } from "@/utils/api";
 
-export default function Home() {
-  const [isPopUpVisible, setPopUpVisible] = useState(false);
-  const togglePopUp = () => setPopUpVisible(!isPopUpVisible);
-
-  const [isLoggedIn, setIsLoggedIn]=useState(false);
-
-  useEffect(()=>{
+export const decideHeader = (setIsLoggedIn:React.Dispatch<React.SetStateAction<boolean>>) => {
     const token = sessionStorage.getItem('token');
     if (token == null){
       setIsLoggedIn(false);
@@ -24,7 +18,16 @@ export default function Home() {
     else{
       setIsLoggedIn(true);
     }
-  },[])
+}
+
+export default function Home() {
+  const [isPopUpVisible, setPopUpVisible] = useState(false);
+  const togglePopUp = () => setPopUpVisible(!isPopUpVisible);
+
+  const [isLoggedIn, setIsLoggedIn]=useState(false);
+  useEffect(()=>{
+    decideHeader(setIsLoggedIn)
+  })
 
   return (
     <>

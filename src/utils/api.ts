@@ -16,11 +16,14 @@ export const postUser = async (cadastro:CreateUserDto) => {
 }
 
 
-export const getOneUser = async () =>{
-    await api.get('/user/id/10')
-    .then(function(data){
-        console.log(data)
-    })
+export const getOneUser = async (id:number) =>{
+    try{
+        const resposta = await api.get(`/user/${id}`);
+        return resposta.data;
+    }catch(error){
+        console.error("Erro na api", error);
+        throw error;
+    }
 }
 
 // const patchUser = async (id:number) =>{

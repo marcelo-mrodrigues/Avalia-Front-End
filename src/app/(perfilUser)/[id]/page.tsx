@@ -9,12 +9,10 @@ import retorno from "/public/retorno.svg";
 import Image from "next/image";
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor } from "@/utils/api";
+import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor, getOneUser } from "@/utils/api";
 import { getOneEvaluation } from "@/utils/api";
 import { string } from "yup";
-
-const decideHeader = () => (<HeaderDeslogado/>);
-
+import { decideHeader } from "@/app/page";
 
 
 
@@ -23,9 +21,11 @@ const PagePerfil = () =>{
 
     const { id } = useParams();
 
-    const [professor, setProfessor] = useState<any>(null);
+    const [user, setUser] = useState<any>(null);
     const [subjects, setSubjects] = useState<any[]>([]);;
     const [evaluation, setEvaluation] = useState<any[]>([]);
+    const [isLoggedIn, setIsLoggedIn]=useState(false);
+
 
 
     useEffect(() => {
@@ -35,15 +35,17 @@ const PagePerfil = () =>{
 
         return;}
         
+        decideHeader(setIsLoggedIn)
+    
         
         const fetchData = async () => {
-            const professorId = Array.isArray(id) ? id[0] : id;
+            const userId = Array.isArray(id) ? id[0] : id;
             try {
-              const professorData = await getOneProfessor(professorId);
-              setProfessor(professorData);
-              console.log("Professor:", professorData);
+              const userData = await getOneUser(userId);
+              setUser(userData);
+              console.log("User:", userData);
         
-              const subjectsData = await getSubjectsByProfessor(professorId);
+              const subjectsData = await getSubjectsByProfessor(userId);
               console.log("Subjects:", subjectsData); // Log para inspecionar os dados
               setSubjects(subjectsData);
 
@@ -60,7 +62,7 @@ const PagePerfil = () =>{
           fetchData();
         }, [id, router]);
 
-    return(<><div><header>{decideHeader()}</header></div>
+    return(<><div><header>{isLoggedIn?<HeaderLogado/>:<HeaderDeslogado/>}</header></div>
         <div className="flex h-[calc(100vh-50px)] relative">
         
         <div className="w-[31%] bg-gray-100 relative">
