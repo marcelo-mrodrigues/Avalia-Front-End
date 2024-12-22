@@ -13,6 +13,7 @@ import ModalAvaliacao from "./components/ModalAvaliacao";
 import { CreateProfessorDto } from "@/utils/types";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { useRouter } from "next/navigation";
 
 export const decideHeader = (setIsLoggedIn:React.Dispatch<React.SetStateAction<boolean>>) => {
     const token = sessionStorage.getItem('token');
@@ -37,7 +38,9 @@ const notify = (succesMessage : string) => {
     });
 };
 
+
 export default function Home() {
+  const router = useRouter()
   const [isPopUpVisible, setPopUpVisible] = useState(false);
   const togglePopUp = () => setPopUpVisible(!isPopUpVisible);
   const [isAvavisible, setAvaVisible] = useState(false)
@@ -54,7 +57,6 @@ export default function Home() {
 
   return (
     <>
-      
       <div className="h-full min-h-screen bg-[#EDEDED]">
         <header>
           {isLoggedIn ? <HeaderLogado/> : <HeaderDeslogado/>}
@@ -86,11 +88,10 @@ export default function Home() {
         <main>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
-            <CardProf />
-            <CardProf />
-            <CardProf />
-            <CardProf /> 
-                    
+             {professores.map((professor)=>
+             <div onClick={() => router.push(`/professor/${professor.id}`)}>
+             <CardProf nome={professor.name} departamento={professor.department}/>
+             </div>)}        
           </div>
           <div className="bg-black h-1 mx-36 my-11"></div>
 
@@ -123,10 +124,7 @@ export default function Home() {
             <PopUp isVisible={isPopUpVisible} />
           </div></div>}</>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-7 ml-32 mr-32 place-items-center gap-y-10">
-            <CardProf />
-            <CardProf />
-            <CardProf />
-            <CardProf />
+          {professores.map((professor)=><CardProf nome={professor.name} departamento={professor.department}/>)}
           </div>
         </main>
         {isAvavisible ? <ModalAvaliacao  notify={notify} professores={professores} onClose={() => setAvaVisible(!isAvavisible)} /> : null}
