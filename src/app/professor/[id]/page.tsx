@@ -8,6 +8,8 @@ import HeaderLogado from "../../components/HeaderLogado";
 import retorno from "/public/retorno.svg";
 import Image from "next/image";
 import Link from 'next/link';
+import building from "/public/mdi_office-building.svg"
+import livro from "/public/abra-o-livro 1.svg"
 import { useParams, useRouter } from 'next/navigation';
 import { getOneProfessor, getSubjectsByProfessor, getEvaluationsByProfessor } from "@/utils/api";
 import { getOneEvaluation } from "@/utils/api";
@@ -60,7 +62,9 @@ const PagePerfil = () =>{
           fetchData();
         }, [id, router]);
 
-    return(<><div><header>{isLoggedIn?<HeaderLogado/>:<HeaderDeslogado/>}</header></div>
+    return(
+    <>
+      <div><header>{isLoggedIn?<HeaderLogado/>:<HeaderDeslogado/>}</header></div>
         <div className="flex h-[calc(100vh-50px)] relative">
         
         <div className="w-[31%] bg-gray-100 relative">
@@ -75,13 +79,16 @@ const PagePerfil = () =>{
             </div>
             <div  className="mt-44"> 
             <p className="font-sans text-3xl">{professor?.name || "Sem Nome"} </p>
-            <p>Dept. {professor?.department || "Sem Departamento"}</p>
-            <p>
+            <p className="flex gap-1">
+              <Image src={building} alt="Erro no carregamento da imagem"></Image>
+              Dept. {professor?.department || "Sem Departamento"}
+            </p>
+            <p className="flex gap-1">
+              <Image src={livro} alt="Erro no carregamento da imagem"></Image>
                 {professor?.subject.map((sub: any, index: number) => (
                   <span key={index}>{sub.name}</span>
                 ))|| "Sem Disciplinas"}
               </p>          
-            <p>ID: {id}</p>
         </div>
         
         </div>

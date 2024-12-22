@@ -18,7 +18,7 @@ export const postUser = async (cadastro:CreateUserDto) => {
 
 export const getOneUser = async (id:number) =>{
     try{
-        const resposta = await api.get(`/user/${id}`);
+        const resposta = await api.get(`/user/id/${id}`);
         return resposta.data;
     }catch(error){
         console.error("Erro na api", error);
