@@ -42,3 +42,13 @@ export type CreateEvaluationDto = {
     content: string;
     
 }
+
+export type UpdateUserDto={
+    name? : string
+
+    email? : string;
+
+    department? : string;
+
+    course? : string;
+}
