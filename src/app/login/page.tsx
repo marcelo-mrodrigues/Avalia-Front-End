@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import { loginUser, postUser } from "@/utils/api";
 import Link from "next/link";
 import { LoginRequestBody } from "@/utils/types";
+import { useRouter } from "next/navigation";
+
 
 
 const LoginPage = () => {
@@ -14,13 +16,18 @@ const validationSchema = Yup.object().shape({
   passWord: Yup.string().required('Senha é obrigatória'), // validação do yup
 });
 
-const onSubmit = (values:LoginRequestBody, actions: any) =>{
-  loginUser(values)
+const router = useRouter()
 
-  setTimeout(() => {
-    actions.setSubmitting(false);
-    toast.success('Login bem-sucedido!',{icon: (<div className="icon-check"></div>),});
-  }, 1000);
+const onSubmit = (values:LoginRequestBody, actions: any,) =>{
+  const logAndRedirect = async () => {
+    await loginUser(values);
+    setTimeout(() => {
+      actions.setSubmitting(false);
+      toast.success('Login bem-sucedido!',{icon: (<div className="icon-check"></div>),});
+    }, 1000);
+    return (router.push("/"))
+  } 
+  logAndRedirect()
 };
 
 

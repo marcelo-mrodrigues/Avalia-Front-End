@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { CreateUserDto, LoginRequestBody } from "./types";
 import { CreateCommentDto } from "./types";
 import { CreateEvaluationDto } from "./types";
@@ -8,7 +8,7 @@ const api = axios.create({
 })
 
 export const postUser = async (cadastro:CreateUserDto) => {
-    const res = await api.post('auth/cadastro', cadastro)
+    const res = await api.post('auth/cadastro', cadastro);
     sessionStorage.setItem('token', res.data.access_token);
 }
 
@@ -39,10 +39,9 @@ export const getOneUser = async () =>{
 // }
 
 export const loginUser = async (login:LoginRequestBody) =>{
-    await api.post('auth/login',login)
-    .then(function(data){
-        console.log(data.data)
-    })
+    const res = await api.post('auth/login',login);
+    sessionStorage.setItem('token', res.data.access_token);
+    console.log("teste")
 }
 
 

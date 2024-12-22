@@ -1,24 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import HeaderDeslogado from "./components/HeaderDeslogado";
 import CardProf from "./components/CardProf";
 import lupa from "/public/lupa.svg";
 import PopUp from "./components/PopUpOrdenacao";
+import HeaderLogado from "./components/HeaderLogado";
 import { getOneProfessor} from "@/utils/api";
 import { getAllProfessors } from "@/utils/api";
 
-
 export default function Home() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
-
   const togglePopUp = () => setPopUpVisible(!isPopUpVisible);
+
+  const [isLoggedIn, setIsLoggedIn]=useState(false);
+
+  useEffect(()=>{
+    const token = sessionStorage.getItem('token');
+    if (token == null){
+      setIsLoggedIn(false);
+    }    
+    else{
+      setIsLoggedIn(true);
+    }
+  },[])
 
   return (
     <>
       <div className="h-full min-h-screen bg-[#EDEDED]">
         <header>
-          <HeaderDeslogado />
+          {isLoggedIn ? <HeaderLogado/> : <HeaderDeslogado/>}
         </header>
         <div>
           <div className="flex">

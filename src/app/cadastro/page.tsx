@@ -8,7 +8,6 @@ import { CreateUserDto } from '@/utils/types';
 import { postUser } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-import { error } from 'console';
 
 // Validação dos Dados
 const initialValues = {
