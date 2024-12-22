@@ -60,7 +60,7 @@ const PagePerfil = () =>{
           fetchData();
         }, [id, router]);
 
-    return(<><div><header>{isLoggedIn?<HeaderLogado/>:<HeaderLogado/>}</header></div>
+    return(<><div><header>{isLoggedIn?<HeaderLogado/>:<HeaderDeslogado/>}</header></div>
         <div className="flex h-[calc(100vh-50px)] relative">
         
         <div className="w-[31%] bg-gray-100 relative">

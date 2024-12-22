@@ -24,8 +24,7 @@ const PagePerfil = () =>{
     const [user, setUser] = useState<any>(null);
     const [subjects, setSubjects] = useState<any[]>([]);;
     const [evaluation, setEvaluation] = useState<any[]>([]);
-    const [isLoggedIn, setIsLoggedIn]=useState(false);
-
+ 
 
 
     useEffect(() => {
