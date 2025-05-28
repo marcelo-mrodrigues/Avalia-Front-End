@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.inputs{
+    @apply bg-white font-Inter size-6 w-full p-5 leading-7 rounded-lg
+}
+
+.dropdown{
+    @apply p-1 rounded-lg
+}
